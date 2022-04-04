@@ -3,9 +3,9 @@
 # unsnap - a tool to migrate away from snaps
 
 function display_warnings() {
-    echo "WARNING! This script, and generated scripts may remove applications and data."
+    echo "WARNING! Care has been taken to ensure this script is safe."
+    echo "The generated scripts will remove applications and data."
     echo "Please ensure you have backups in case you need to recover data. "
-    echo "No warranty is given or implied by the use of unsnap."
     read -r -p "Press enter now to continue or CTRL+C to abort."
 }
 
