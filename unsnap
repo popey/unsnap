@@ -115,7 +115,7 @@ function generate_flathub_enablement_script() {
     # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
     echo "INFO: Generating flathub enablement script in $ENABLEFLATHUBSRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$ENABLEFLATHUBSRIPT" 
-    echo "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo" >> "$ENABLEFLATHUBSRIPT"
+    echo "sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo" >> "$ENABLEFLATHUBSRIPT"
     chmod +x "$ENABLEFLATHUBSRIPT"
 }
 
