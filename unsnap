@@ -87,6 +87,7 @@ EOT
             ;;
         *)
             echo "ERROR: Unable to generate flatpak install script. Unimplemented distro." | tee -a "$LOGFILE"
+            exit 5
     esac
     chmod +x "$INSTALLFLATPACKSCRIPT"
 }
