@@ -12,6 +12,12 @@
 
 Quickly and easily migrate from using `snap` for applications to `flatpak`. unsnap runs as a two-stage process. unsnap itself generates the scripts to do the actual migration. This enables users to view and/or edit the scripts prior to execution to validate or tweak them.
 
+## Project Status
+
+Let's say it's "Pre-alpha", as in "*It kinda works on my computer*".
+
+Unless you plan on contributing (see below) it's probably not ready for you, yet.
+
 ## Running unsnap
 
 Simply clone this repo and then run `unsnap`. After some warnings and checks, this will generate a set of scripts. Run those generated scripts in sequence to achieve unsnappyness.
