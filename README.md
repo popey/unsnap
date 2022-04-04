@@ -55,7 +55,7 @@ unsnap check
 
 Currently unsnap runs a `snap save` for each snap being migrated. This uses the `snapd` internal mechanism to backup application data. You should ensure you have enough disk space and time for this operation, as some applications will have a lot of data to backup.
 
-More information about `snap save` can be found in the[(snap snapshots documentation](https://snapcraft.io/docs/snapshots).
+More information about `snap save` can be found in the [snap snapshots documentation](https://snapcraft.io/docs/snapshots).
 
 The backup can be skipped by omitting running the backup scripts before starting the migration proper.
 
