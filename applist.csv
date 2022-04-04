@@ -6,7 +6,9 @@ bovo,org.kde.bovo
 calligra,org.kde.calligra
 cantor,org.kde.cantor
 cervisia,org.kde.cervisia
+clion,com.jetbrains.CLion
 code,com.visualstudio.code
+datagrip,com.jetbrains.DataGrip
 digikam,org.kde.digikam
 discord,com.discordapp.Discord
 dragon,org.kde.dragon
@@ -33,8 +35,11 @@ gnome-robots,org.gnome.Robots
 gnome-sudoku,org.gnome.Sudoku
 gnome-taquin,org.gnome.Taquin
 gnome-tetravex,org.gnome.Tetravex
+goland,com.jetbrains.GoLand
 granatier,org.kde.granatier
 gwenview,org.kde.gwenview
+intellij-idea-community,com.jetbrains.IntelliJ-IDEA-Community
+intellij-idea-ultimate,com.jetbrains.IntelliJ-IDEA-Ultimate
 kalgebra,org.kde.kalgebra
 kalzium,org.kde.kalzium
 kanagram,org.kde.kanagram
@@ -99,8 +104,13 @@ okular,org.kde.okular
 palapeli,org.kde.palapeli
 parley,org.kde.parley
 peruse,org.kde.peruse
+phpstorm,com.jetbrains.PhpStorm
 picmi,org.kde.picmi
+pycharm-community,com.jetbrains.PyCharm-Community
+pycharm-professional,com.jetbrains.PyCharm-Professional
 rocs,org.kde.rocs
+rider,com.jetbrains.Rider
+rubymine,com.jetbrains.RubyMine
 skanlite,org.kde.skanlite
 skrooge,org.kde.skrooge
 spectacle,org.kde.spectacle
@@ -109,5 +119,6 @@ step,org.kde.step
 sweeper,org.kde.sweeper
 umbrello,org.kde.umbrello
 vlc,org.videolan.VLC
+webstorm,com.jetbrains.WebStorm
 yakuake,org.kde.yakuake
 zoom-client,us.zoom.Zoom
