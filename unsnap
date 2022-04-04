@@ -15,6 +15,7 @@ function setup_environment() {
     LOGFILE="$LOGDIR/activity.txt"
     INSTALLEDSNAPLIST="$LOGDIR/allsnaps.txt"
     FILTEREDSNAPLIST="$LOGDIR/filteredsnaps.txt"
+    MISSINGFLATPAK="$LOGDIR/missingflatpak.txt"
     APPLIST="./applist.csv"
     EXCLUDEDSNAPLIST="./excluded_snaps.txt"
     BACKUPSCRIPT="$LOGDIR/00-backup"
@@ -101,6 +102,7 @@ function generate_packages_install_script() {
         flatpak=$(grep "^$p" "$APPLIST" | awk -F ',' '{ print $2}')
         if [ "$flatpak" == "" ]; then
             echo "WARNING: No equivalent flatpak for $snap found" | tee -a "$LOGFILE"
+            echo "$snap" >> "$MISSINGFLATPAK"
         else
             echo "echo Installing $flatpak to replace $snap" >> "$INSTALLPACKAGESSCRIPT"
             echo flatpak install "$flatpak" >> "$INSTALLPACKAGESSCRIPT"

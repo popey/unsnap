@@ -85,6 +85,7 @@ I knocked this prototype up over the weekend, but it's far from complete. Here's
 
 * Support distributions other than Ubuntu
 * Update `applist.csv` to be a more complete list of migratable applications
+  * Consider [submitting](https://github.com/popey/unsnap/issues/new?assignees=&labels=&template=missing-flatpak-report.md&title=) the `missingflatpak.txt` report from running `unsnap` here
 * Update `excluded_snaps.txt` to contain further examples of non-migratable applications
 * Add feature to migrate data from the common snap directories to places flatpak'ed applications can find them
   * This is a bit hard and may need special cases for some applications. For example 'classic' snaps may store data anywhere, whereas well-confined applications might store in the snap-specific directories.
