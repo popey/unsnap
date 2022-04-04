@@ -99,8 +99,12 @@ function generate_packages_install_script() {
     do
         snap=$p
         flatpak=$(grep "^$p" "$APPLIST" | awk -F ',' '{ print $2}')
-        echo "echo Installing $flatpak to replace $snap" >> "$INSTALLPACKAGESSCRIPT"
-        echo flatpak install "$flatpak" >> "$INSTALLPACKAGESSCRIPT"
+        if [ "$flatpak" == "" ]; then
+            echo "WARNING: No equivalent flatpak for $snap found" | tee -a "$LOGFILE"
+        else
+            echo "echo Installing $flatpak to replace $snap" >> "$INSTALLPACKAGESSCRIPT"
+            echo flatpak install "$flatpak" >> "$INSTALLPACKAGESSCRIPT"
+        fi
     done < "$FILTEREDSNAPLIST"
     chmod +x "$INSTALLPACKAGESSCRIPT"
 }
