@@ -69,7 +69,7 @@ unsnap writes to the console, and to a log file called `activity.txt` in `./log-
 
 ## Excluded snaps
 
-There's a list of snaps in `excluded_snaps.txt` which are packages from the snap store for which there's no real equivalent in flathub. This includes snaps like `bare`, `core18`, and `core20`.
+There's a list of snaps in `excluded_snaps.txt` which are packages from the snap store for which there's no real equivalent in flathub. This includes snaps like `bare`, `core18`, and `core20`. As such we don't want to prompt to migrate people from these to some other flatpak.
 
 *Note*: Yes, I know there are *conceptually* equivalent packages in flathub to these, but those get pulled in as part of the application installs, and do not require management by unsnap itself.
 
