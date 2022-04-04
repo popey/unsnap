@@ -1,0 +1,268 @@
+#!/usr/bin/env bash
+
+# unsnap - a tool to migrate away from snaps
+
+function display_warnings() {
+    echo "WARNING! This script, and generated scripts may remove applications and data."
+    echo "Please ensure you have backups in case you need to recover data. "
+    echo "No warranty is given or implied by the use of unsnap."
+    read -r -p "Press enter now to continue or CTRL+C to abort."
+}
+
+function setup_environment() {
+    DATETIMESTAMP=$(date +%Y-%m-%d.%H.%M.%S)
+    LOGDIR="./log-$DATETIMESTAMP"
+    LOGFILE="$LOGDIR/activity.txt"
+    INSTALLEDSNAPLIST="$LOGDIR/allsnaps.txt"
+    FILTEREDSNAPLIST="$LOGDIR/filteredsnaps.txt"
+    APPLIST="./applist.csv"
+    EXCLUDEDSNAPLIST="./excluded_snaps.txt"
+    BACKUPSCRIPT="$LOGDIR/00-backup"
+    INSTALLFLATPACKSCRIPT="$LOGDIR/01-install-flatpak"
+    ENABLEFLATHUBSRIPT="$LOGDIR/02-enable-flathub"
+    INSTALLPACKAGESSCRIPT="$LOGDIR/03-install-flatpaks"
+    REMOVESNAPSSCRIPT="$LOGDIR/04-remove-snaps"
+    REMOVESNAPDSCRIPT="$LOGDIR/99-remove-snapd"
+    SHEBANG="#!/usr/bin/env bash"
+    DISTRO="unknown"
+}
+
+function create_logdir() {
+    mkdir "$LOGDIR"
+}
+
+function audit_snap() {
+    echo -n "INFO: Audit snap $1" | tee -a "$LOGFILE"
+    if snap info "$1" > /dev/null; then 
+        echo " ✔" | tee -a "$LOGFILE"
+    else
+        echo " ✖" | tee -a "$LOGFILE"
+        exit 3
+    fi
+}
+
+function audit_flatpak() {
+    echo -n "INFO: Audit flatpak $1" | tee -a "$LOGFILE"
+    if flatpak search "$1" > /dev/null; then 
+        echo " ✔" | tee -a "$LOGFILE"
+    else
+        echo " ✖" | tee -a "$LOGFILE"
+        exit 4
+    fi
+}
+
+function check_applist() {
+    # TODO: Change these to not require snap, but use some http API instead
+    while IFS="" read -r p || [ -n "$p" ]
+    do
+        snap=$(echo "$p" | awk -F ',' '{ print $1}')
+        flatpak=$(echo "$p" | awk -F ',' '{ print $2}')
+        audit_snap "$snap"
+        audit_flatpak "$flatpak"
+    done < "$APPLIST"
+    exit 0
+}
+
+function check_for_snap() {
+    echo "INFO: Checking for snap binary"  | tee -a "$LOGFILE"
+    if which snap > /dev/null; then 
+        echo "INFO: snap found" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: snapd doesn't appear to be installed, exiting." | tee -a "$LOGFILE"
+        exit 1
+    fi
+}
+
+function generate_flatpak_install_script() {
+    echo "INFO: Generating flatpak installer script in $INSTALLFLATPACKSCRIPT" | tee -a "$LOGFILE"
+    echo "$SHEBANG" > "$INSTALLFLATPACKSCRIPT"
+    case $DISTRO in
+        Ubuntu)
+        cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
+# Documentation: https://flatpak.org/setup/Ubuntu
+sudo apt update
+sudo apt install flatpak
+# sudo apt install gnome-software-plugin-flatpak
+EOT
+            ;;
+        *)
+            echo "ERROR: Unable to generate flatpak install script. Unimplemented distro." | tee -a "$LOGFILE"
+    esac
+    chmod +x "$INSTALLFLATPACKSCRIPT"
+}
+
+function generate_packages_install_script() {
+    echo "INFO: Generating flatpaks installer script in $INSTALLPACKAGESSCRIPT" | tee -a "$LOGFILE"
+    echo "$SHEBANG" > "$INSTALLPACKAGESSCRIPT"
+    while IFS="" read -r p || [ -n "$p" ]
+    do
+        snap=$p
+        flatpak=$(grep "^$p" "$APPLIST" | awk -F ',' '{ print $2}')
+        echo "echo Installing $flatpak to replace $snap" >> "$INSTALLPACKAGESSCRIPT"
+        echo flatpak install "$flatpak" >> "$INSTALLPACKAGESSCRIPT"
+    done < "$FILTEREDSNAPLIST"
+    chmod +x "$INSTALLPACKAGESSCRIPT"
+}
+
+function generate_flathub_enablement_script() {
+    # flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+    echo "INFO: Generating flathub enablement script in $ENABLEFLATHUBSRIPT" | tee -a "$LOGFILE"
+    echo "$SHEBANG" > "$ENABLEFLATHUBSRIPT" 
+    echo "flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo" >> "$ENABLEFLATHUBSRIPT"
+    chmod +x "$ENABLEFLATHUBSRIPT"
+}
+
+function generate_remove_snaps_script() {
+    echo "INFO: Generating snap removal script in $REMOVESNAPSSCRIPT" | tee -a "$LOGFILE"
+    echo "$SHEBANG" > "$REMOVESNAPSSCRIPT" 
+    while IFS="" read -r p || [ -n "$p" ]
+    do
+        snap=$(echo "$p" | awk -F ',' '{ print $1}')
+        echo "echo Removing snap $snap" >> "$REMOVESNAPSSCRIPT"
+        echo sudo snap remove "$snap" >> "$REMOVESNAPSSCRIPT"
+    done < "$FILTEREDSNAPLIST"
+    chmod +x "$REMOVESNAPSSCRIPT"
+}
+
+function generate_remove_snapd_script() {
+    echo "INFO: Generating snapd removal script in $REMOVESNAPDSCRIPT" | tee -a "$LOGFILE"
+    echo "$SHEBANG" > "$REMOVESNAPDSCRIPT" 
+    echo "echo Removing snapd" >> "$REMOVESNAPDSCRIPT" 
+    case $DISTRO in
+        Ubuntu)
+            echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
+            ;;
+        *)
+            echo "ERROR: Unable to generate snapd removal script. Unimplemented distro." | tee -a "$LOGFILE"
+    esac
+    chmod +x "$REMOVESNAPDSCRIPT"
+}
+
+function generate_backup_script() {
+    echo "INFO: Generating snap backup script in $BACKUPSCRIPT"  | tee -a "$LOGFILE"
+    echo "$SHEBANG" > "$BACKUPSCRIPT" 
+    echo "# Documentation: https://snapcraft.io/docs/snapshots" >> "$BACKUPSCRIPT"
+    while IFS="" read -r p || [ -n "$p" ]
+    do
+        snap=$(echo "$p" | awk -F ',' '{ print $1}')
+        echo "echo Backup $snap snap data" >> "$BACKUPSCRIPT"
+        echo sudo snap save "$snap" >> "$BACKUPSCRIPT"
+    done < "$FILTEREDSNAPLIST"
+    echo "echo Summary of saved data:" >> "$BACKUPSCRIPT"
+    echo "snap saved" >> "$BACKUPSCRIPT"
+    chmod +x "$BACKUPSCRIPT"
+}
+
+function check_for_flatpak() {
+    echo "INFO: Checking for flatpak binary" | tee -a "$LOGFILE"
+    if which flatpak > /dev/null; then
+        echo "INFO: flatpak found no need to generate flatpak install script" | tee -a "$LOGFILE"
+        check_for_flathub
+    else
+        echo "INFO: flatpak doesn't appear to be installed, adding installer script and enabling flathub" | tee -a "$LOGFILE"
+        generate_flatpak_install_script
+        generate_flathub_enablement_script
+    fi
+}
+
+function check_for_flathub() {
+    echo "INFO: Checking for flathub remote" | tee -a "$LOGFILE"
+    if flatpak remotes | grep flathub > /dev/null; then
+        echo "INFO: flathub already enabled" |  tee -a "$LOGFILE"
+    else
+        echo "INFO: flathub doesn't appear to be enabled" |  tee -a "$LOGFILE"
+        generate_flathub_enablement_script
+    fi
+}
+
+function determine_distro() {
+    CANDIDATE=$(grep DISTRIB_ID /etc/lsb-release | awk -F "=" '{ print $2} ')
+    if [ "$CANDIDATE" == "Ubuntu" ]; then 
+        DISTRO="Ubuntu"
+    fi
+    if [ "$DISTRO" == "unknown" ]; then
+        echo "ERROR: Running on unkown distro, '$CANDIDATE' aborting" | tee -a "$LOGFILE"
+        exit 2
+    else
+        echo "INFO: Detected $DISTRO" | tee -a "$LOGFILE"
+    fi
+}
+
+function get_installed_snaps() {
+    echo "INFO! Getting list of installed snaps to $INSTALLEDSNAPLIST" | tee -a "$LOGFILE"
+    snap list | tail -n +2 | awk -F " " '{ print $1 }' > "$INSTALLEDSNAPLIST"
+    echo "INFO! Trimming list of installed snaps to $FILTEREDSNAPLIST" | tee -a "$LOGFILE"
+    grep -v -f "$EXCLUDEDSNAPLIST" "$INSTALLEDSNAPLIST" > "$FILTEREDSNAPLIST"
+}
+
+function cleanup() {
+    rm "$INSTALLEDSNAPLIST" "$FILTEREDSNAPLIST"
+}
+
+function run_scripts() {
+    echo "INFO: Running backup" | tee -a "$LOGFILE"
+    if "$BACKUPSCRIPT"; then
+        echo "INFO: Backup finished" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: Backup failed" | tee -a "$LOGFILE"
+        exit 10
+    fi
+    # TODO: we should check as this may not be necessary
+    echo "INFO: Installing flatpak" | tee -a "$LOGFILE"
+    if "$INSTALLFLATPACKSCRIPT"; then
+        echo "INFO: Installing flatpak finished" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: Install flatpak failed" | tee -a "$LOGFILE"
+        exit 11
+    fi
+    # TODO: we should check as this may not be necessary
+    echo "INFO: Enabling flathub" | tee -a "$LOGFILE"
+    if "$ENABLEFLATHUBSRIPT"; then
+        echo "INFO: Flathub enabled" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: Enabling flathub failed" | tee -a "$LOGFILE"
+        exit 12
+    fi
+    echo "INFO: Installing flatpak packages" | tee -a "$LOGFILE"
+    if "$INSTALLPACKAGESSCRIPT"; then
+        echo "INFO: flatpaks installed" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: Failed to install flatpaks" | tee -a "$LOGFILE"
+        exit 13
+    fi
+    echo "INFO: Removing snaps" | tee -a "$LOGFILE"
+    if "$REMOVESNAPSSCRIPT"; then
+        echo "INFO: Snaps removed" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: Failed to remove snaps" | tee -a "$LOGFILE"
+        exit 14
+    fi
+    echo "INFO: Removing snapd daemon" | tee -a "$LOGFILE"
+    if "$REMOVESNAPDSCRIPT"; then
+        echo "INFO: snapd removed" | tee -a "$LOGFILE"
+    else
+        echo "ERROR: Failed to remove snapd" | tee -a "$LOGFILE"
+        exit 15
+    fi
+}
+
+setup_environment
+create_logdir
+if [ "$1" == "check" ]; then
+    echo "INFO: Check requested" | tee -a "$LOGFILE"
+    check_applist
+fi
+display_warnings
+determine_distro
+check_for_snap # this should be universal, so we can check for the binary earlier for check_snap
+check_for_flatpak # this should be universal check maybe, so it can be checked in "check_flatpak"
+get_installed_snaps
+generate_backup_script
+generate_packages_install_script
+generate_remove_snaps_script
+generate_remove_snapd_script
+cleanup
+if [ "$1" == "auto" ]; then
+    echo "INFO: Auto requested" | tee -a "$LOGFILE"
+    run_scripts
+fi
