@@ -254,12 +254,14 @@ function run_scripts() {
 }
 
 setup_environment
-create_logdir
 if [ "$1" == "check" ]; then
+    create_logdir
     echo "INFO: Check requested" | tee -a "$LOGFILE"
     check_applist
+else
+    display_warnings
+    create_logdir
 fi
-display_warnings
 determine_distro
 check_for_snap # this should be universal, so we can check for the binary earlier for check_snap
 check_for_flatpak # this should be universal check maybe, so it can be checked in "check_flatpak"
