@@ -85,4 +85,4 @@ I knocked this prototype up over the weekend, but it's far from complete. Here's
 
 ## Friendly notice
 
-*Note*: The existence of unsnap is merely a tool to enable users to switch from snapped applications to flatpak applications. This is not intended as a commentary or sleight against any software. It's just a utility.
+*Note*: The existence of unsnap is merely a tool to enable users to switch from snapped applications to flatpak applications. This is not intended as a commentary or slight against any software. It's just a utility.
