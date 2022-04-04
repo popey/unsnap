@@ -1,7 +1,7 @@
 <h1 align="center">
   <img src=".github/logo.png" alt="unsnap" width="256" />
   <br />
-  Quickemu
+  unsnap
 </h1>
 
 <p align="center"><b>Quickly migrate from using snap packages to flatpaks.</b></p>
