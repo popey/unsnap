@@ -78,3 +78,7 @@ I knocked this prototype up over the weekend, but it's far from complete. Here's
 * Update `excluded_snaps.txt` to contain further examples of non-migratable applications
 * Add feature to migrate data from the common snap directories to places flatpak'ed applications can find them
   * This is a bit hard and may need special cases for some applications. For example 'classic' snaps may store data anywhere, whereas well-confined applications might store in the snap-specific directories.
+
+## Friendly notice
+
+*Note*: The existence of unsnap is merely a tool to enable users to switch from snapped applications to flatpak applications. This is not intended as a commentary or sleight against any software. It's just a utility.
