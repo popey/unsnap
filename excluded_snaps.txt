@@ -5,3 +5,4 @@ bare
 snapd
 gnome-3-38-2004
 gtk-common-themes
+canonical-livepatch
