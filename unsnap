@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 # unsnap - a tool to migrate away from snaps
+# shellcheck disable=SC2129
 
 function display_warnings() {
     echo "WARNING! Care has been taken to ensure this script is safe."
@@ -149,12 +150,16 @@ function generate_remove_snaps_script() {
     # Generate a shell script to remove each snap in turn.
     echo "INFO: Generating snap removal script in $REMOVESNAPSSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$REMOVESNAPSSCRIPT" 
+    echo -n "for s in " >> "$REMOVESNAPSSCRIPT"
     while IFS="" read -r p || [ -n "$p" ]
     do
         snap=$(echo "$p" | awk -F ',' '{ print $1}')
-        echo "echo Removing snap $snap" >> "$REMOVESNAPSSCRIPT"
-        echo sudo snap remove "$snap" >> "$REMOVESNAPSSCRIPT"
+        echo -n "$snap " >> "$REMOVESNAPSSCRIPT"
     done < "$FILTEREDSNAPLIST"
+    echo -n " ;" >> "$REMOVESNAPSSCRIPT"
+    echo " do" >> "$REMOVESNAPSSCRIPT"
+    echo "  snap remove \$s " >> "$REMOVESNAPSSCRIPT"
+    echo "done" >> "$REMOVESNAPSSCRIPT"
     chmod +x "$REMOVESNAPSSCRIPT"
 }
 
