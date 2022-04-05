@@ -55,7 +55,7 @@ To facilitate checking the snap and flatpak names in the applist.csv file, unsna
 unsnap check
 ```
 
-*Note*: In this mode, no scripts are generated, no data is changed, and no flatpaks are installed, but an activity log file is generated.
+*Note*: In this mode, no scripts are generated, no data is changed, and no flatpaks are installed, but an `unsnap.log`file is generated.
 
 ## Application data
 
@@ -71,7 +71,7 @@ It's (currently) left as an exercise for the user, to actually *restore* the dat
 
 ## Logging
 
-unsnap writes to the console, and to a log file called `activity.txt` in `./log-YYYY-MM-DD.HH.MM.SS` beneath the current directory.
+unsnap writes to the console, and to a log file called `unsnap.log` in `./log-YYYY-MM-DD.HH.MM.SS` beneath the current directory.
 
 ## Excluded snaps
 
