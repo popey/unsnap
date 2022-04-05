@@ -91,6 +91,73 @@ I knocked this prototype up over the weekend, but it's far from complete. Here's
 * Add feature to migrate data from the common snap directories to places flatpak'ed applications can find them
   * This is a bit hard and may need special cases for some applications. For example 'classic' snaps may store data anywhere, whereas well-confined applications might store in the snap-specific directories.
 
+## Example Generated Script Output
+
+In this example I installed all the 'featured' snaps (output of `snap find`) on my laptop then ran `unsnap` which generated these scripts.
+
+### 00-backup
+
+``` {.bash}
+#!/usr/bin/env bash
+# Documentation: https://snapcraft.io/docs/snapshots
+snap save bitwarden blix cecconoid chromium discord firefox flock-chat gimp kdenlive keepassxc krita libreoffice liveforspeed obs-studio onlyoffice-desktopeditors pinta skype slack spotify telegram-desktop thunderbird typeapp-mail vidcutter vlc warble 
+```
+
+### 01-install-flatpak
+
+``` {.bash}
+#!/usr/bin/env bash
+# Documentation: https://flatpak.org/setup/Ubuntu
+sudo apt update
+sudo apt install flatpak
+# sudo apt install gnome-software-plugin-flatpak
+```
+
+### 02-enable-flathub
+
+``` {.bash}
+#!/usr/bin/env bash
+sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+```
+
+### 03-install-flatpaks
+
+``` {.bash}
+#!/usr/bin/env bash
+for f in com.bitwarden org.chromium.Chromium com.discordapp.Discord org.mozilla.firefox org.gimp.GIMP org.kde.kdenlive org.keepassxc.KeePassXC org.kde.krita org.libreoffice.LibreOffice com.obsproject.Studio org.onlyoffice com.github.PintaProject.Pinta com.skype.Client com.slack.Slack com.spotify.Client org.mozilla.Thunderbird com.ozmartians.VidCutter org.videolan.VLC  ; do
+  flatpak install flathub --noninteractive -y $f
+done
+```
+
+### 04-remove-snaps
+
+``` {.bash}
+#!/usr/bin/env bash
+for s in bitwarden blix cecconoid chromium discord firefox flock-chat gimp kdenlive keepassxc krita libreoffice liveforspeed obs-studio onlyoffice-desktopeditors pinta skype slack spotify telegram-desktop thunderbird typeapp-mail vidcutter vlc warble  ; do
+  snap remove $s 
+done
+```
+
+### 99-remove-snapd
+
+``` {.bash}
+#!/usr/bin/env bash
+echo Removing snapd
+sudo apt remove snapd
+```
+
+### missingflatpak.txt
+
+``` {.bash}
+blix
+cecconoid
+flock-chat
+liveforspeed
+telegram-desktop
+typeapp-mail
+warble
+```
+
 ## Friendly notice
 
 *Note*: The existence of unsnap is merely a tool to enable users to switch from snapped applications to flatpak applications. This is not intended as a commentary or slight against any software. It's just a utility.
