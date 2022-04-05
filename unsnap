@@ -42,7 +42,6 @@ function audit_snap() {
         echo " ✔" | tee -a "$LOGFILE"
     else
         echo " ✖" | tee -a "$LOGFILE"
-        exit 3
     fi
 }
 
@@ -54,7 +53,6 @@ function audit_flatpak() {
         echo " ✔" | tee -a "$LOGFILE"
     else
         echo " ✖" | tee -a "$LOGFILE"
-        exit 4
     fi
 }
 
