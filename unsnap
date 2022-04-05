@@ -95,7 +95,7 @@ function generate_flatpak_install_script() {
     echo "INFO: Generating flatpak installer script in $INSTALLFLATPACKSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$INSTALLFLATPACKSCRIPT"
     case $DISTRO in
-        Ubuntu|LinuxMint|Pop)
+        Ubuntu|LinuxMint|Pop|elementary)
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
 # Documentation: https://flatpak.org/setup/
 sudo apt update
@@ -174,7 +174,7 @@ function generate_remove_snapd_script() {
     echo "$SHEBANG" > "$REMOVESNAPDSCRIPT" 
     echo "echo Removing snapd" >> "$REMOVESNAPDSCRIPT" 
     case $DISTRO in
-        Ubuntu|LinuxMint|Pop)
+        Ubuntu|LinuxMint|Pop|elementary)
             echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
         *)
@@ -234,7 +234,7 @@ function determine_distro() {
     # TODO: Add more distros
     CANDIDATE=$(grep DISTRIB_ID /etc/lsb-release | awk -F "=" '{ print $2} ')
     case $CANDIDATE in
-        Ubuntu|LinuxMint|Pop)
+        Ubuntu|LinuxMint|Pop|elementary)
             DISTRO="$CANDIDATE"
             ;;
         *)
@@ -269,23 +269,27 @@ function run_scripts() {
         echo "ERROR: Backup failed" | tee -a "$LOGFILE"
         exit 10
     fi
-    # TODO: we should check as this may not be necessary and thus
-    # may not exist
-    echo "INFO: Installing flatpak" | tee -a "$LOGFILE"
-    if "$INSTALLFLATPACKSCRIPT"; then
-        echo "INFO: Installing flatpak finished" | tee -a "$LOGFILE"
+    if test -f "$INSTALLFLATPACKSCRIPT"; then
+        echo "INFO: Installing flatpak" | tee -a "$LOGFILE"
+        if "$INSTALLFLATPACKSCRIPT"; then
+            echo "INFO: Installing flatpak finished" | tee -a "$LOGFILE"
+        else
+            echo "ERROR: Install flatpak failed" | tee -a "$LOGFILE"
+            exit 11
+        fi
     else
-        echo "ERROR: Install flatpak failed" | tee -a "$LOGFILE"
-        exit 11
+        echo "INFO: Skipping installing flatpak, already installed" | tee -a "$LOGFILE"
     fi
-    # TODO: we should check as this may not be necessary and thus
-    # may not exist
-    echo "INFO: Enabling flathub" | tee -a "$LOGFILE"
-    if "$ENABLEFLATHUBSRIPT"; then
-        echo "INFO: Flathub enabled" | tee -a "$LOGFILE"
+    if test -f "$ENABLEFLATHUBSRIPT"; then
+        echo "INFO: Enabling flathub" | tee -a "$LOGFILE"
+        if "$ENABLEFLATHUBSRIPT"; then
+            echo "INFO: Flathub enabled" | tee -a "$LOGFILE"
+        else
+            echo "ERROR: Enabling flathub failed" | tee -a "$LOGFILE"
+            exit 12
+        fi
     else
-        echo "ERROR: Enabling flathub failed" | tee -a "$LOGFILE"
-        exit 12
+        echo "INFO: Skipping enabling flathub, already enabled" | tee -a "$LOGFILE"
     fi
     echo "INFO: Installing flatpak packages" | tee -a "$LOGFILE"
     if "$INSTALLPACKAGESSCRIPT"; then
