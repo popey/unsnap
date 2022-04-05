@@ -1,8 +1,12 @@
-core20
-core18
-core
 bare
-snapd
+canonical-livepatch
+core
+core18
+core20
+gnome-3-28-1804
+gnome-3-34-1804
 gnome-3-38-2004
 gtk-common-themes
-canonical-livepatch
+snapd
+wine-platform-3-stable
+wine-platform-runtime
