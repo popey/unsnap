@@ -192,14 +192,13 @@ function generate_backup_script() {
     echo "INFO: Generating snap backup script in $BACKUPSCRIPT"  | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$BACKUPSCRIPT" 
     echo "# Documentation: https://snapcraft.io/docs/snapshots" >> "$BACKUPSCRIPT"
+    echo -n "snap save " >> "$BACKUPSCRIPT"
     while IFS="" read -r p || [ -n "$p" ]
     do
         snap=$(echo "$p" | awk -F ',' '{ print $1}')
-        echo "echo Backup $snap snap data" >> "$BACKUPSCRIPT"
-        echo sudo snap save "$snap" >> "$BACKUPSCRIPT"
+        echo -n "$snap " >> "$BACKUPSCRIPT"
     done < "$FILTEREDSNAPLIST"
-    echo "echo Summary of saved data:" >> "$BACKUPSCRIPT"
-    echo "snap saved" >> "$BACKUPSCRIPT"
+    echo "" >> "$BACKUPSCRIPT"
     chmod +x "$BACKUPSCRIPT"
 }
 
