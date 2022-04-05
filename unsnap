@@ -85,6 +85,11 @@ function check_for_snap() {
         echo "ERROR: snapd doesn't appear to be installed, exiting." | tee -a "$LOGFILE"
         exit 1
     fi
+    echo "INFO: Check for any snaps installed" | tee -a "$LOGFILE"
+    if [ "$(snap list | wc -l)" == "0" ]; then 
+        echo "ERROR: No snaps installed, nothing to do here!" | tee -a "$LOGFILE"
+        exit 6
+    fi
 }
 
 function generate_flatpak_install_script() {
@@ -95,7 +100,7 @@ function generate_flatpak_install_script() {
     echo "INFO: Generating flatpak installer script in $INSTALLFLATPACKSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$INSTALLFLATPACKSCRIPT"
     case $DISTRO in
-        Ubuntu|LinuxMint|Pop|elementary)
+        Ubuntu|LinuxMint|Pop|elementary|Zorin)
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
 # Documentation: https://flatpak.org/setup/
 sudo apt update
@@ -174,7 +179,7 @@ function generate_remove_snapd_script() {
     echo "$SHEBANG" > "$REMOVESNAPDSCRIPT" 
     echo "echo Removing snapd" >> "$REMOVESNAPDSCRIPT" 
     case $DISTRO in
-        Ubuntu|LinuxMint|Pop|elementary)
+        Ubuntu|LinuxMint|Pop|elementary|Zorin)
             echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
         *)
@@ -234,7 +239,7 @@ function determine_distro() {
     # TODO: Add more distros
     CANDIDATE=$(grep DISTRIB_ID /etc/lsb-release | awk -F "=" '{ print $2} ')
     case $CANDIDATE in
-        Ubuntu|LinuxMint|Pop|elementary)
+        Ubuntu|LinuxMint|Pop|elementary|Zorin)
             DISTRO="$CANDIDATE"
             ;;
         *)
