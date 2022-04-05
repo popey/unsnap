@@ -60,6 +60,7 @@ kdenlive,org.kde.kdenlive
 kdevelop,org.kde.kdevelop
 kdf,org.kde.kdf
 kdiamond,org.kde.kdiamond
+keepassxc,org.keepassxc.KeePassXC
 kfourinline,org.kde.kfourinline
 kgeography,org.kde.kgeography
 kgoldrunner,org.kde.kgoldrunner
@@ -108,12 +109,14 @@ neochat,org.kde.neochat
 obs-studio,com.obsproject.Studio
 okteta,org.kde.okteta
 okular,org.kde.okular
+onlyoffice-desktopeditors,org.onlyoffice
 openra,net.openra.OpenRA
 palapeli,org.kde.palapeli
 parley,org.kde.parley
 peruse,org.kde.peruse
 phpstorm,com.jetbrains.PhpStorm
 picmi,org.kde.picmi
+pinta,com.github.PintaProject.Pinta
 pycharm-community,com.jetbrains.PyCharm-Community
 pycharm-professional,com.jetbrains.PyCharm-Professional
 rider,com.jetbrains.Rider
@@ -128,9 +131,11 @@ spectacle,org.kde.spectacle
 spotify,com.spotify.Client
 step,org.kde.step
 sweeper,org.kde.sweeper
+telegram,org.telegram
 thunderbird,org.mozilla.Thunderbird
 todoist,com.todoist.Todoist
 umbrello,org.kde.umbrello
+vidcutter,com.ozmartians.VidCutter
 vlc,org.videolan.VLC
 webstorm,com.jetbrains.WebStorm
 yakuake,org.kde.yakuake
