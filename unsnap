@@ -15,7 +15,7 @@ function display_warnings() {
 function setup_environment() {
     DATETIMESTAMP=$(date +%Y-%m-%d.%H.%M.%S)
     LOGDIR="./log-$DATETIMESTAMP"
-    LOGFILE="$LOGDIR/activity.txt"
+    LOGFILE="$LOGDIR/unsnap.log"
     INSTALLEDSNAPLIST="$LOGDIR/allsnaps.txt"
     FILTEREDSNAPLIST="$LOGDIR/filteredsnaps.txt"
     MISSINGFLATPAK="$LOGDIR/missingflatpak.txt"
