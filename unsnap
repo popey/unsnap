@@ -111,12 +111,11 @@ EOT
 
 function generate_packages_install_script() {
     # Generate shell script to install each flatpak in turn
-    # TODO: Be nicer to generate a script which uses a loop to iterate through the list
-    # Would make for a shorter script.
     # TODO: Should also wrap each install to detect if it fails, and stop to cope
     # with error situations like disk full.
     echo "INFO: Generating flatpaks installer script in $INSTALLPACKAGESSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$INSTALLPACKAGESSCRIPT"
+    echo -n "for f in " >> "$INSTALLPACKAGESSCRIPT"
     while IFS="" read -r p || [ -n "$p" ]
     do
         snap=$p
@@ -125,10 +124,13 @@ function generate_packages_install_script() {
             echo "WARNING: No equivalent flatpak for $snap found" | tee -a "$LOGFILE"
             echo "$snap" >> "$MISSINGFLATPAK"
         else
-            echo "echo Installing $flatpak to replace $snap" >> "$INSTALLPACKAGESSCRIPT"
-            echo flatpak install "$flatpak" >> "$INSTALLPACKAGESSCRIPT"
+            echo -n "$flatpak " >> "$INSTALLPACKAGESSCRIPT"
         fi
     done < "$FILTEREDSNAPLIST"
+    echo -n " ;" >> "$INSTALLPACKAGESSCRIPT"
+    echo " do" >> "$INSTALLPACKAGESSCRIPT"
+    echo "  flatpak install flathub --noninteractive -y \$f" >> "$INSTALLPACKAGESSCRIPT"
+    echo "done" >> "$INSTALLPACKAGESSCRIPT"
     chmod +x "$INSTALLPACKAGESSCRIPT"
 }
 
