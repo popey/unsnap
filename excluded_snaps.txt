@@ -6,7 +6,14 @@ core20
 gnome-3-28-1804
 gnome-3-34-1804
 gnome-3-38-2004
+godot-runtime
 gtk-common-themes
+gtk2-common-themes
+kde-frameworks-5
+qt513
+qt551
 snapd
 wine-platform-3-stable
+wine-platform-5-stable
+wine-platform-6-stable
 wine-platform-runtime
