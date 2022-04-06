@@ -39,7 +39,9 @@ function setup_environment() {
     REMOVESNAPSSCRIPT="$LOGDIR/04-remove-snaps"
     REMOVESNAPDSCRIPT="$LOGDIR/99-remove-snapd"
     SHEBANG="#!/usr/bin/env bash"
-    DISTRO="unknown"
+    RECOMMENDREBOOT="no"
+    REBOOTTEXT="${YELLOW}WARNING:${NC} Please logout/in or reboot, to ensure applications appear in your desktop menu"
+    PACKAGEMGR="unknown"
 }
 
 function create_logdir() {
@@ -145,6 +147,8 @@ EOT
            echo -e "${RED}ERROR:${NC} Unable to generate flatpak install script. Unimplemented Package Manager." | tee -a "$LOGFILE"
             exit 5
     esac
+    RECOMMENDREBOOT="yes"
+    echo "echo $REBOOTTEXT" >> "$INSTALLFLATPACKSCRIPT"
     chmod +x "$INSTALLFLATPACKSCRIPT"
 }
 
@@ -196,7 +200,7 @@ function generate_remove_snaps_script() {
     done < "$FILTEREDSNAPLIST"
     echo -n " ;" >> "$REMOVESNAPSSCRIPT"
     echo " do" >> "$REMOVESNAPSSCRIPT"
-    echo "  snap remove \$s " >> "$REMOVESNAPSSCRIPT"
+    echo "  sudo snap remove \$s " >> "$REMOVESNAPSSCRIPT"
     echo "done" >> "$REMOVESNAPSSCRIPT"
     chmod +x "$REMOVESNAPSSCRIPT"
 }
@@ -354,6 +358,13 @@ function run_scripts() {
     fi
 }
 
+function recommend_reboot() {
+    if [ "$RECOMMENDREBOOT" == "yes" ]; then
+        echo "$REBOOTTEXT" | tee -a "$LOGFILE"
+    fi
+}
+
+
 setup_environment
 if [ "$1" == "check" ]; then
     create_logdir
@@ -376,4 +387,5 @@ cleanup
 if [ "$1" == "auto" ]; then
     echo -e "${GREEN}INFO:${NC} Auto requested" | tee -a "$LOGFILE"
     run_scripts
+    recommend_reboot
 fi
