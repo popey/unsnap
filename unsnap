@@ -97,17 +97,41 @@ function generate_flatpak_install_script() {
     # to run script using sudo or root.
     echo "INFO: Generating flatpak installer script in $INSTALLFLATPACKSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$INSTALLFLATPACKSCRIPT"
-    case $DISTRO in
-        Ubuntu|LinuxMint|Pop|elementary|Zorin)
+    echo "# Documentation: https://flatpak.org/setup/" >> "$INSTALLFLATPACKSCRIPT"
+    case $PACKAGEMGR in
+        apt)
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
-# Documentation: https://flatpak.org/setup/
 sudo apt update
 sudo apt install flatpak
 # sudo apt install gnome-software-plugin-flatpak
 EOT
             ;;
+        pacman)
+        cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
+sudo pacman -Syu
+sudo pacman -S flatpak
+EOT
+            ;;
+        zypper)
+        cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
+sudo zypper refresh
+sudo zypper install flatpak
+EOT
+            ;;
+        dnf)
+        cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
+sudo dnf update
+sudo dnf install flatpak
+EOT
+            ;;
+        yum)
+        cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
+sudo yum update
+sudo yum install flatpak
+EOT
+            ;;
         *)
-            echo "ERROR: Unable to generate flatpak install script. Unimplemented distro." | tee -a "$LOGFILE"
+            echo "ERROR: Unable to generate flatpak install script. Unimplemented Package Manager." | tee -a "$LOGFILE"
             exit 5
     esac
     chmod +x "$INSTALLFLATPACKSCRIPT"
@@ -176,12 +200,15 @@ function generate_remove_snapd_script() {
     echo "INFO: Generating snapd removal script in $REMOVESNAPDSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$REMOVESNAPDSCRIPT" 
     echo "echo Removing snapd" >> "$REMOVESNAPDSCRIPT" 
-    case $DISTRO in
-        Ubuntu|LinuxMint|Pop|elementary|Zorin)
+    case $PACKAGEMGR in
+        apt)
             echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
+        pacman)
+            echo "sudo pacman -R snapd" >> "$REMOVESNAPDSCRIPT"
+            ;;
         *)
-            echo "ERROR: Unable to generate snapd removal script. Unimplemented distro." | tee -a "$LOGFILE"
+            echo "ERROR: Unable to generate snapd removal script. Unimplemented package manager." | tee -a "$LOGFILE"
     esac
     chmod +x "$REMOVESNAPDSCRIPT"
 }
@@ -231,21 +258,20 @@ function check_for_flathub() {
     fi
 }
 
-function determine_distro() {
-    # Figure out what distro we're running on so we can use appropriate commands
+function determine_packagemanager() {
+    # Figure out what package manager is base to the current system on so we can use appropriate commands
     # later for installing / removing snapd and installing flatpak
-    # TODO: Add more distros
-    CANDIDATE=$(grep DISTRIB_ID /etc/lsb-release | awk -F "=" '{ print $2} ')
-    case $CANDIDATE in
-        Ubuntu|LinuxMint|Pop|elementary|Zorin)
-            DISTRO="$CANDIDATE"
+    PACKAGEMGR=$(command -v {apt,pacman} | sed "s/.*\///")
+    case $PACKAGEMGR in
+        apt|pacman|zypper|dnf|yum)
+            PACKAGEMGR="$PACKAGEMGR"
             ;;
         *)
-            echo "ERROR: Running on unknown distro, '$CANDIDATE' aborting" | tee -a "$LOGFILE"
+            echo "ERROR: Could not determine appropriate package manager, '$PACKAGEMGR' aborting" | tee -a "$LOGFILE"
             exit 2
             ;;
     esac
-    echo "INFO: Detected $DISTRO" | tee -a "$LOGFILE"
+    echo "INFO: Detected $PACKAGEMGR as package manager" | tee -a "$LOGFILE"
 }
 
 function get_installed_snaps() {
@@ -326,9 +352,10 @@ else
     display_warnings
     create_logdir
 fi
-determine_distro
+
 check_for_snap # this should be universal, so we can check for the binary earlier for check_snap
 check_for_flatpak # this should be universal check maybe, so it can be checked in "check_flatpak"
+determine_packagemanager
 get_installed_snaps
 generate_backup_script
 generate_packages_install_script
