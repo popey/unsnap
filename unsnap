@@ -28,6 +28,8 @@ function setup_environment() {
     REMOVESNAPSSCRIPT="$LOGDIR/04-remove-snaps"
     REMOVESNAPDSCRIPT="$LOGDIR/99-remove-snapd"
     SHEBANG="#!/usr/bin/env bash"
+    RECOMMENDREBOOT="no"
+    REBOOTTEXT="WARNING: Please logout/in or reboot, to ensure applications appear in your desktop menu"
     DISTRO="unknown"
 }
 
@@ -110,6 +112,8 @@ EOT
             echo "ERROR: Unable to generate flatpak install script. Unimplemented distro." | tee -a "$LOGFILE"
             exit 5
     esac
+    RECOMMENDREBOOT="yes"
+    echo "echo $REBOOTTEXT" >> "$INSTALLFLATPACKSCRIPT"
     chmod +x "$INSTALLFLATPACKSCRIPT"
 }
 
@@ -161,7 +165,7 @@ function generate_remove_snaps_script() {
     done < "$FILTEREDSNAPLIST"
     echo -n " ;" >> "$REMOVESNAPSSCRIPT"
     echo " do" >> "$REMOVESNAPSSCRIPT"
-    echo "  snap remove \$s " >> "$REMOVESNAPSSCRIPT"
+    echo "  sudo snap remove \$s " >> "$REMOVESNAPSSCRIPT"
     echo "done" >> "$REMOVESNAPSSCRIPT"
     chmod +x "$REMOVESNAPSSCRIPT"
 }
@@ -195,7 +199,7 @@ function generate_backup_script() {
     echo "INFO: Generating snap backup script in $BACKUPSCRIPT"  | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$BACKUPSCRIPT" 
     echo "# Documentation: https://snapcraft.io/docs/snapshots" >> "$BACKUPSCRIPT"
-    echo -n "snap save " >> "$BACKUPSCRIPT"
+    echo -n "sudo snap save " >> "$BACKUPSCRIPT"
     while IFS="" read -r p || [ -n "$p" ]
     do
         snap=$(echo "$p" | awk -F ',' '{ print $1}')
@@ -317,6 +321,12 @@ function run_scripts() {
     fi
 }
 
+function recommend_reboot() {
+    if [ "$RECOMMENDREBOOT" == "yes" ]; then
+        echo "$REBOOTTEXT" | tee -a "$LOGFILE"
+    fi
+}
+
 setup_environment
 if [ "$1" == "check" ]; then
     create_logdir
@@ -338,4 +348,5 @@ cleanup
 if [ "$1" == "auto" ]; then
     echo "INFO: Auto requested" | tee -a "$LOGFILE"
     run_scripts
+    recommend_reboot
 fi
