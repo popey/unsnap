@@ -220,7 +220,16 @@ function generate_remove_snapd_script() {
             echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
         pacman)
-            echo "sudo pacman -R snapd" >> "$REMOVESNAPDSCRIPT"
+            echo "sudo pacman -Rsn snapd" >> "$REMOVESNAPDSCRIPT"
+            ;;
+        zypper)
+            echo "sudo zypper remove snapd" >> "$REMOVESNAPDSCRIPT"
+            ;;
+        dnf)
+            echo "sudo dnf remove snapd" >> "$REMOVESNAPDSCRIPT"
+            ;;
+        yum)
+            echo "sudo yum remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
         *)
            echo -e "${RED}ERROR:${NC} Unable to generate snapd removal script. Unimplemented package manager." | tee -a "$LOGFILE"
