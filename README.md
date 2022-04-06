@@ -83,8 +83,6 @@ There's a list of snaps in `excluded_snaps.txt` which are packages from the snap
 
 I knocked this prototype up over the weekend, but it's far from complete. Here's some features that aren't yet complete. Contributions welcome!
 
-* Support distributions other than Ubuntu
-  * According to [snapcraft core18 store page](https://snapcraft.io/core18) (which I have no reason to disbelieve), the following distros are most popular in terms of snaps installed: Manjaro, Linux Mint, Zorin, Debian, Fedora, Pop_OS!, KDE Neon, Raspbian, Centos, elementary OS.
 * Update `applist.csv` to be a more complete list of migratable applications
   * Consider [submitting](https://github.com/popey/unsnap/issues/new?assignees=&labels=&template=missing-flatpak-report.md&title=) the `missingflatpak.txt` report from running `unsnap` here
 * Update `excluded_snaps.txt` to contain further examples of non-migratable applications
