@@ -98,7 +98,7 @@ function generate_flatpak_install_script() {
     echo "INFO: Generating flatpak installer script in $INSTALLFLATPACKSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$INSTALLFLATPACKSCRIPT"
     case $DISTRO in
-        Ubuntu|LinuxMint|Pop|elementary|Zorin)
+        debian|ubuntu|linuxmint|pop|elementary|zorin)
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
 # Documentation: https://flatpak.org/setup/
 sudo apt update
@@ -177,7 +177,7 @@ function generate_remove_snapd_script() {
     echo "$SHEBANG" > "$REMOVESNAPDSCRIPT" 
     echo "echo Removing snapd" >> "$REMOVESNAPDSCRIPT" 
     case $DISTRO in
-        Ubuntu|LinuxMint|Pop|elementary|Zorin)
+        debian|ubuntu|linuxmint|pop|elementary|zorin)
             echo "sudo apt remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
         *)
@@ -235,9 +235,9 @@ function determine_distro() {
     # Figure out what distro we're running on so we can use appropriate commands
     # later for installing / removing snapd and installing flatpak
     # TODO: Add more distros
-    CANDIDATE=$(grep DISTRIB_ID /etc/lsb-release | awk -F "=" '{ print $2} ')
+    CANDIDATE=$(grep -w ID /etc/os-release | awk -F "=" '{ print $2} ')
     case $CANDIDATE in
-        Ubuntu|LinuxMint|Pop|elementary|Zorin)
+        debian|ubuntu|linuxlint|pop|elementary|zorin)
             DISTRO="$CANDIDATE"
             ;;
         *)
