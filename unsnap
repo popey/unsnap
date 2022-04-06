@@ -143,6 +143,11 @@ sudo yum update
 sudo yum install flatpak
 EOT
             ;;
+        eopkg)
+        cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
+sudo eopkg install flatpak
+EOT
+            ;;
         *)
            echo -e "${RED}ERROR:${NC} Unable to generate flatpak install script. Unimplemented Package Manager." | tee -a "$LOGFILE"
             exit 5
@@ -231,6 +236,8 @@ function generate_remove_snapd_script() {
         yum)
             echo "sudo yum remove snapd" >> "$REMOVESNAPDSCRIPT"
             ;;
+        eopkg)
+            echo "sudo eopkg remove snapd" >> "$REMOVESNAPDSCRIPT"
         *)
            echo -e "${RED}ERROR:${NC} Unable to generate snapd removal script. Unimplemented package manager." | tee -a "$LOGFILE"
     esac
@@ -287,7 +294,7 @@ function determine_packagemanager() {
     # later for installing / removing snapd and installing flatpak
     PACKAGEMGR=$(command -v {apt,pacman} | sed "s/.*\///")
     case $PACKAGEMGR in
-        apt|pacman|zypper|dnf|yum)
+        apt|pacman|zypper|dnf|yum|eopkg)
             PACKAGEMGR="$PACKAGEMGR"
             ;;
         *)
