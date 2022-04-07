@@ -57,7 +57,7 @@ unsnap ships with a csv file that contains a mapping of snap package names to fl
 To facilitate checking the snap and flatpak names in the applist.csv file, unsnap has an "check" mode. This simply runs through the `applist.csv` file to check for the existence of every snap and flatpak listed. For this mode to work, both the snap and flatpak commands should be installed. This is an unsnap developer feature, and typically isn't required to be run by users.
 
 ``` {.bash}
-unsnap check
+./unsnap check
 ```
 
 *Note*: In this mode, no scripts are generated, no data is changed, and no flatpaks are installed, but an `unsnap.log`file is generated.
