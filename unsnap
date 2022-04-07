@@ -238,6 +238,7 @@ function generate_remove_snapd_script() {
             ;;
         eopkg)
             echo "sudo eopkg remove snapd" >> "$REMOVESNAPDSCRIPT"
+            ;;
         *)
            echo -e "${RED}ERROR:${NC} Unable to generate snapd removal script. Unimplemented package manager." | tee -a "$LOGFILE"
     esac
