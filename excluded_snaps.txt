@@ -16,7 +16,12 @@ kde-frameworks-5-core18
 qt513
 qt551
 snapd
+snap-store
 wine-platform-3-stable
 wine-platform-5-stable
 wine-platform-6-stable
 wine-platform-runtime
+docker
+ipfs
+ipfs-desktop
+heroku
