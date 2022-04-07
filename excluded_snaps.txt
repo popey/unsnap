@@ -3,6 +3,8 @@ canonical-livepatch
 core
 core18
 core20
+ffmpeg
+gifski
 gnome-3-28-1804
 gnome-3-34-1804
 gnome-3-38-2004
