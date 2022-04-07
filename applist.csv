@@ -27,6 +27,7 @@ fractal,org.gnome.Fractal
 freecad,org.freecadweb.FreeCAD
 gcompris,org.kde.gcompris
 gimp,org.gimp.GIMP
+glimpse-editor,org.glimpse_editor.Glimpse
 gnome-calculator,org.gnome.Calculator
 gnome-characters,org.gnome.Characters
 gnome-chess,org.gnome.Chess
@@ -139,6 +140,7 @@ picmi,org.kde.picmi
 pinta,com.github.PintaProject.Pinta
 poedit,net.poedit.Poedit
 postman,com.getpostman.Postman
+prusa-slicer,com.prusa3d.PrusaSlicer
 pycharm-community,com.jetbrains.PyCharm-Community
 pycharm-professional,com.jetbrains.PyCharm-Professional
 rider,com.jetbrains.Rider
