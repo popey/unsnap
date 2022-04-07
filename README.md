@@ -26,13 +26,15 @@ We have a Discord for this project:
 Simply clone this repo and then run `unsnap`. After some warnings and checks, this will generate a set of scripts. Run those generated scripts in sequence to achieve unsnappyness.
 
 ``` {.bash}
-unsnap
+git clone https://github.com/popey/unsnap
+cd unsnap
+./unsnap
 ```
 
 Alternatively run `unsnap` with the `auto` option to generate **and** run the scripts immediately.
 
 ``` {.bash}
-unsnap auto
+./unsnap auto
 ```
 
 ## Generated Scripts
