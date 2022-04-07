@@ -10,6 +10,9 @@ godot-runtime
 gtk-common-themes
 gtk2-common-themes
 kde-frameworks-5
+kde-frameworks-5-qt-5-15-core20
+kde-frameworks-5-qt-5-15-3-core20
+kde-frameworks-5-core18
 qt513
 qt551
 snapd
