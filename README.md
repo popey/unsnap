@@ -18,6 +18,9 @@ Let's say it's "Pre-alpha", as in "*It kinda works on my computer*".
 
 Unless you plan on contributing (see below) it's probably not ready for you, yet.
 
+We have a Discord for this project:
+[![Discord](https://img.shields.io/discord/955793792626208779?color=0C306A&label=popey%27s%20home%20Discord&logo=Discord&logoColor=ffffff&style=flat-square)](https://discord.gg/dk55RrnZyq)
+
 ## Running unsnap
 
 Simply clone this repo and then run `unsnap`. After some warnings and checks, this will generate a set of scripts. Run those generated scripts in sequence to achieve unsnappyness.
