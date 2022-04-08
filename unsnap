@@ -312,13 +312,13 @@ function run_scripts() {
         echo "ERROR: Failed to remove snaps" | tee -a "$LOGFILE"
         exit 14
     fi
-    echo "INFO: Removing snapd daemon" | tee -a "$LOGFILE"
-    if "$REMOVESNAPDSCRIPT"; then
-        echo "INFO: snapd removed" | tee -a "$LOGFILE"
-    else
-        echo "ERROR: Failed to remove snapd" | tee -a "$LOGFILE"
-        exit 15
-    fi
+    # echo "INFO: Removing snapd daemon" | tee -a "$LOGFILE"
+    # if "$REMOVESNAPDSCRIPT"; then
+    #     echo "INFO: snapd removed" | tee -a "$LOGFILE"
+    # else
+    #     echo "ERROR: Failed to remove snapd" | tee -a "$LOGFILE"
+    #     exit 15
+    # fi
 }
 
 function recommend_reboot() {
