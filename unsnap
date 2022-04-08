@@ -104,7 +104,7 @@ function generate_flatpak_install_script() {
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
 # Documentation: https://flatpak.org/setup/
 sudo apt update
-sudo apt install flatpak
+sudo apt install -y flatpak
 # sudo apt install gnome-software-plugin-flatpak
 EOT
             ;;
