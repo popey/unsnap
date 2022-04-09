@@ -104,7 +104,7 @@ function generate_flatpak_install_script() {
         cat <<EOT >> "$INSTALLFLATPACKSCRIPT"
 # Documentation: https://flatpak.org/setup/
 sudo apt update
-sudo apt install flatpak
+sudo apt install -y flatpak
 # sudo apt install gnome-software-plugin-flatpak
 EOT
             ;;
@@ -158,10 +158,16 @@ function generate_remove_snaps_script() {
     echo "INFO: Generating snap removal script in $REMOVESNAPSSCRIPT" | tee -a "$LOGFILE"
     echo "$SHEBANG" > "$REMOVESNAPSSCRIPT" 
     echo -n "for s in " >> "$REMOVESNAPSSCRIPT"
+    # Iterate through the filtered list of snaps (that is snaps which aren't excluded from matching)
     while IFS="" read -r p || [ -n "$p" ]
     do
         snap=$(echo "$p" | awk -F ',' '{ print $1}')
-        echo -n "$snap " >> "$REMOVESNAPSSCRIPT"
+        # Check to make sure the snap isn't on the missing list.
+        if grep "$snap" "$MISSINGFLATPAK"; then
+            echo "WARNING: $snap snap has no equivalent, not candidate for removing" | tee -a "$LOGFILE"
+        else
+            echo -n "$snap " >> "$REMOVESNAPSSCRIPT"
+        fi
     done < "$FILTEREDSNAPLIST"
     echo -n " ;" >> "$REMOVESNAPSSCRIPT"
     echo " do" >> "$REMOVESNAPSSCRIPT"
@@ -301,6 +307,8 @@ function run_scripts() {
     echo "INFO: Installing flatpak packages" | tee -a "$LOGFILE"
     if "$INSTALLPACKAGESSCRIPT"; then
         echo "INFO: flatpaks installed" | tee -a "$LOGFILE"
+        echo "INFO: These flatpaks are now installed:" | tee -a "$LOGFILE"
+        flatpak list | tee -a "$LOGFILE"
     else
         echo "ERROR: Failed to install flatpaks" | tee -a "$LOGFILE"
         exit 13
@@ -308,17 +316,19 @@ function run_scripts() {
     echo "INFO: Removing snaps" | tee -a "$LOGFILE"
     if "$REMOVESNAPSSCRIPT"; then
         echo "INFO: Snaps removed" | tee -a "$LOGFILE"
+        echo "WARNING: These snaps are still installed:" | tee -a "$LOGFILE"
+        snap list | tee -a "$LOGFILE"
     else
         echo "ERROR: Failed to remove snaps" | tee -a "$LOGFILE"
         exit 14
     fi
-    echo "INFO: Removing snapd daemon" | tee -a "$LOGFILE"
-    if "$REMOVESNAPDSCRIPT"; then
-        echo "INFO: snapd removed" | tee -a "$LOGFILE"
-    else
-        echo "ERROR: Failed to remove snapd" | tee -a "$LOGFILE"
-        exit 15
-    fi
+    # echo "INFO: Removing snapd daemon" | tee -a "$LOGFILE"
+    # if "$REMOVESNAPDSCRIPT"; then
+    #     echo "INFO: snapd removed" | tee -a "$LOGFILE"
+    # else
+    #     echo "ERROR: Failed to remove snapd" | tee -a "$LOGFILE"
+    #     exit 15
+    # fi
 }
 
 function recommend_reboot() {
