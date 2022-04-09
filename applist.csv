@@ -49,7 +49,7 @@ inkscape,org.inkscape.Inkscape
 insomnia,rest.insomnia.Insomnia
 intellij-idea-community,com.jetbrains.IntelliJ-IDEA-Community
 intellij-idea-ultimate,com.jetbrains.IntelliJ-IDEA-Ultimate
-joplin,net.cozic.joplin_desktop
+joplin-desktop,net.cozic.joplin_desktop
 kalgebra,org.kde.kalgebra
 kalzium,org.kde.kalzium
 kanagram,org.kde.kanagram
@@ -118,7 +118,6 @@ minuet,org.kde.minuet
 mumble,info.mumble.Mumble
 neochat,org.kde.neochat
 newsflash,com.gitlab.newsflash
-nextcloud,com.nextcloud.desktopclient.nextcloud
 obs-studio,com.obsproject.Studio
 okteta,org.kde.okteta
 okular,org.kde.okular
