@@ -1,3 +1,4 @@
+android-studio,com.google.AndroidStudio
 ark,org.kde.ark
 artikulate,org.kde.artikulate
 audacity,org.audacityteam.Audacity
@@ -15,6 +16,7 @@ cervisia,org.kde.cervisia
 chromium,org.chromium.Chromium
 clion,com.jetbrains.CLion
 code,com.visualstudio.code
+codium,com.vscodium.codium
 converternow,io.github.ferraridamiano.ConverterNOW
 corsixth,com.corsixth.corsixth
 cura-slicer,com.ultimaker.cura
@@ -28,6 +30,7 @@ falkon,org.kde.falkon
 firefox,org.mozilla.firefox
 fluffychat,im.fluffychat.Fluffychat
 fractal,org.gnome.Fractal
+fragments,de.haeckerfelix.Fragments
 freecad,org.freecadweb.FreeCAD
 gcompris,org.kde.gcompris
 gimp,org.gimp.GIMP
@@ -157,6 +160,7 @@ rocketchat-desktop,chat.rocket.RocketChat
 rocs,org.kde.rocs
 rubymine,com.jetbrains.RubyMine
 scummvm,org.scummvm.ScummVM
+shortwave,de.haeckerfelix.Shortwave
 shotcut,org.shotcut.Shotcut
 signal-desktop,org.signal.Signal
 skanlite,org.kde.skanlite
@@ -170,6 +174,7 @@ step,org.kde.step
 sublime-merge,com.sublimemerge.App
 sublime-text,com.sublimetext.three
 sweeper,org.kde.sweeper
+teeworlds-unofficial,com.teeworlds.Teeworlds
 telegram-desktop,org.telegram.desktop
 thunderbird,org.mozilla.Thunderbird
 tiled,org.mapeditor.Tiled
