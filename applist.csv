@@ -6,6 +6,7 @@ blender,org.blender.Blender
 blinken,org.kde.blinken
 bomber,org.kde.bomber
 bovo,org.kde.bovo
+brave,com.brave.Browser
 calligra,org.kde.calligra
 cantor,org.kde.cantor
 caprine,com.sindresorhus.Caprine
@@ -15,6 +16,7 @@ chromium,org.chromium.Chromium
 clion,com.jetbrains.CLion
 code,com.visualstudio.code
 converternow,io.github.ferraridamiano.ConverterNOW
+corsixth,com.corsixth.corsixth
 cura-slicer,com.ultimaker.cura
 darktable,org.darktable.Darktable
 datagrip,com.jetbrains.DataGrip
@@ -29,6 +31,7 @@ fractal,org.gnome.Fractal
 freecad,org.freecadweb.FreeCAD
 gcompris,org.kde.gcompris
 gimp,org.gimp.GIMP
+gitkraken,com.axosoft.GitKraken
 glimpse-editor,org.glimpse_editor.Glimpse
 gnome-calculator,org.gnome.Calculator
 gnome-characters,org.gnome.Characters
@@ -121,6 +124,7 @@ lbry,io.lbry.lbry-app
 libreoffice,org.libreoffice.LibreOffice
 liferea,net.sourceforge.liferea
 love2d,org.love2d.love2d
+manuskript,ch.theologeek.Manuskript
 mattermost-desktop,com.mattermost.Desktop
 mindustry,com.github.Anuken.Mindustry
 minuet,org.kde.minuet
@@ -149,6 +153,7 @@ prusa-slicer,com.prusa3d.PrusaSlicer
 pycharm-community,com.jetbrains.PyCharm-Community
 pycharm-professional,com.jetbrains.PyCharm-Professional
 rider,com.jetbrains.Rider
+rocketchat-desktop,chat.rocket.RocketChat
 rocs,org.kde.rocs
 rubymine,com.jetbrains.RubyMine
 scummvm,org.scummvm.ScummVM
