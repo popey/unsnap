@@ -1,3 +1,4 @@
+0ad,com.play0ad.zeroad
 android-studio,com.google.AndroidStudio
 ark,org.kde.ark
 artikulate,org.kde.artikulate
@@ -25,6 +26,7 @@ datagrip,com.jetbrains.DataGrip
 digikam,org.kde.digikam
 discord,com.discordapp.Discord
 dragon,org.kde.dragon
+eog,org.gnome.eog
 evince,org.gnome.Evince
 falkon,org.kde.falkon
 firefox,org.mozilla.firefox
@@ -33,6 +35,7 @@ fractal,org.gnome.Fractal
 fragments,de.haeckerfelix.Fragments
 freecad,org.freecadweb.FreeCAD
 gcompris,org.kde.gcompris
+gedit,org.gnome.gedit
 gimp,org.gimp.GIMP
 gitkraken,com.axosoft.GitKraken
 glimpse-editor,org.glimpse_editor.Glimpse
@@ -60,6 +63,7 @@ goland,com.jetbrains.GoLand
 granatier,org.kde.granatier
 gwenview,org.kde.gwenview
 inkscape,org.inkscape.Inkscape
+insomnia,rest.insomnia.Insomnia
 insomnia,rest.insomnia.Insomnia
 intellij-idea-community,com.jetbrains.IntelliJ-IDEA-Community
 intellij-idea-ultimate,com.jetbrains.IntelliJ-IDEA-Ultimate
@@ -134,7 +138,9 @@ minuet,org.kde.minuet
 mumble,info.mumble.Mumble
 natron,fr.natron.Natron
 neochat,org.kde.neochat
+netbeans,org.apache.netbeans
 newsflash,com.gitlab.newsflash
+notepadqq,com.notepadqq.Notepadqq
 obsidian,md.obsidian.Obsidian
 obs-studio,com.obsproject.Studio
 okteta,org.kde.okteta
@@ -155,11 +161,15 @@ postman,com.getpostman.Postman
 prusa-slicer,com.prusa3d.PrusaSlicer
 pycharm-community,com.jetbrains.PyCharm-Community
 pycharm-professional,com.jetbrains.PyCharm-Professional
+quadrapassel,org.gnome.Quadrapassel
+retroarch,org.libretro.RetroArch
 rider,com.jetbrains.Rider
 rocketchat-desktop,chat.rocket.RocketChat
 rocs,org.kde.rocs
 rubymine,com.jetbrains.RubyMine
 scummvm,org.scummvm.ScummVM
+scummvm,org.scummvm.ScummVM
+shattered-pixel-dungeon,com.shatteredpixel.shatteredpixeldungeon
 shortwave,de.haeckerfelix.Shortwave
 shotcut,org.shotcut.Shotcut
 signal-desktop,org.signal.Signal
@@ -173,6 +183,7 @@ spotify,com.spotify.Client
 step,org.kde.step
 sublime-merge,com.sublimemerge.App
 sublime-text,com.sublimetext.three
+supertuxkart,net.supertuxkart.SuperTuxKart
 sweeper,org.kde.sweeper
 teeworlds-unofficial,com.teeworlds.Teeworlds
 telegram-desktop,org.telegram.desktop
@@ -182,6 +193,7 @@ todoist,com.todoist.Todoist
 umbrello,org.kde.umbrello
 vidcutter,com.ozmartians.VidCutter
 vlc,org.videolan.VLC
+warzone2100,net.wz2100.wz2100
 webstorm,com.jetbrains.WebStorm
 whatsdesk,io.github.mimbrero.WhatsAppDesktop
 xonotic,org.xonotic.Xonotic
