@@ -247,7 +247,7 @@ function determine_distro() {
     # TODO: Add more distros
     CANDIDATE=$(grep -w ID /etc/os-release | awk -F "=" '{ print $2} ')
     case $CANDIDATE in
-        debian|ubuntu|linuxlint|pop|elementary|zorin)
+        debian|ubuntu|linuxmint|pop|elementary|zorin)
             DISTRO="$CANDIDATE"
             ;;
         *)
