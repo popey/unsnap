@@ -1,5 +1,6 @@
 0ad,com.play0ad.zeroad
 android-studio,com.google.AndroidStudio
+arduino,cc.arduino.arduinoide
 ark,org.kde.ark
 artikulate,org.kde.artikulate
 audacity,org.audacityteam.Audacity
@@ -166,6 +167,7 @@ retroarch,org.libretro.RetroArch
 rider,com.jetbrains.Rider
 rocketchat-desktop,chat.rocket.RocketChat
 rocs,org.kde.rocs
+rpi-imager,org.raspberrypi.rpi-imager
 rubymine,com.jetbrains.RubyMine
 scummvm,org.scummvm.ScummVM
 scummvm,org.scummvm.ScummVM
@@ -195,12 +197,10 @@ vidcutter,com.ozmartians.VidCutter
 vlc,org.videolan.VLC
 warzone2100,net.wz2100.wz2100
 webstorm,com.jetbrains.WebStorm
+whatsapp-for-linux,com.github.eneshecan.WhatsAppForLinux
 whatsdesk,io.github.mimbrero.WhatsAppDesktop
 xonotic,org.xonotic.Xonotic
 xournalpp,com.github.xournalpp.xournalpp
 yakuake,org.kde.yakuake
-zoom-client,us.zoom.Zoom
-whatsapp-for-linux,com.github.eneshecan.WhatsAppForLinux
-rpi-imager,org.raspberrypi.rpi-imager
 zaproxy,org.zaproxy.ZAP
-arduino,cc.arduino.arduinoide
+zoom-client,us.zoom.Zoom
