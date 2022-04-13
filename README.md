@@ -166,6 +166,9 @@ telegram-desktop
 typeapp-mail
 warble
 ```
+## Related projects
+
+The [custom-desktop](https://github.com/natanjunges/custom-desktop) project by [Natan Junges](https://github.com/natanjunges) which provides a set of packages to *revert* an existing Ubuntu install back to something many users may appreciate more. 
 
 ## Friendly notice
 
