@@ -90,7 +90,7 @@ The purpose of [excluded_snaps.txt](excluded_snaps.txt) is **not** to list packa
 
 ## Contributions
 
-I knocked this prototype up over the weekend, but it's far from complete. Here's some features that aren't yet complete. Contributions welcome!
+I knocked this prototype up over the weekend, but it's far from complete. Here're some features that aren't yet complete. Contributions welcome!
 
 * Support distributions other than Ubuntu
   * According to [snapcraft core18 store page](https://snapcraft.io/core18) (which I have no reason to disbelieve), the following distros are most popular in terms of snaps installed: Manjaro, Linux Mint, Zorin, Debian, Fedora, Pop_OS!, KDE Neon, Raspbian, Centos, elementary OS.
