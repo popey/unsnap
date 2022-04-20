@@ -15,6 +15,7 @@ cantor,org.kde.cantor
 caprine,com.sindresorhus.Caprine
 cawbird,uk.co.ibboard.cawbird
 cervisia,org.kde.cervisia
+cherrytree,com.giuspen.cherrytree
 chromium,org.chromium.Chromium
 clion,com.jetbrains.CLion
 code,com.visualstudio.code
@@ -164,6 +165,7 @@ prusa-slicer,com.prusa3d.PrusaSlicer
 pycharm-community,com.jetbrains.PyCharm-Community
 pycharm-professional,com.jetbrains.PyCharm-Professional
 quadrapassel,org.gnome.Quadrapassel
+remmina,org.remmina.Remmina
 retroarch,org.libretro.RetroArch
 rider,com.jetbrains.Rider
 rocketchat-desktop,chat.rocket.RocketChat
@@ -194,6 +196,7 @@ thunderbird,org.mozilla.Thunderbird
 tiled,org.mapeditor.Tiled
 todoist,com.todoist.Todoist
 umbrello,org.kde.umbrello
+veloren,net.veloren.veloren
 vidcutter,com.ozmartians.VidCutter
 vlc,org.videolan.VLC
 warzone2100,net.wz2100.wz2100
@@ -203,5 +206,6 @@ whatsdesk,io.github.mimbrero.WhatsAppDesktop
 xonotic,org.xonotic.Xonotic
 xournalpp,com.github.xournalpp.xournalpp
 yakuake,org.kde.yakuake
+yuzu,org.yuzu_emu.yuzu
 zaproxy,org.zaproxy.ZAP
 zoom-client,us.zoom.Zoom
