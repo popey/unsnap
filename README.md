@@ -170,6 +170,8 @@ warble
 
 The [custom-desktop](https://github.com/natanjunges/custom-desktop) project by [Natan Junges](https://github.com/natanjunges) which provides a set of packages to *revert* an existing Ubuntu install back to something many users may appreciate more. 
 
+[deb-get](https://github.com/wimpysworld/deb-get) enables Ubuntu users to install and update deb-based packages of popular applications.
+
 ## Friendly notice
 
 *Note*: The existence of unsnap is merely a tool to enable users to switch from snapped applications to flatpak applications. This is not intended as a commentary or slight against any software. It's just a utility.
