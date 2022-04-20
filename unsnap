@@ -39,23 +39,23 @@ function create_logdir() {
 
 function audit_snap() {
     # TODO: Change these to not require snap, but use a reliable API instead
-    echo -n "INFO: Audit snap $1" | tee -a "$LOGFILE"
-    if snap info "$1" > /dev/null; then 
-        echo " ✔" | tee -a "$LOGFILE"
+    if snap info "$1" > /dev/null 2>&1; then 
+        RESULT="✔ "
     else
-        echo " ✖" | tee -a "$LOGFILE"
+        RESULT="✖ "
     fi
+    echo "INFO: $RESULT Audit snap    $1" | tee -a "$LOGFILE"
 }
 
 function audit_flatpak() {
     # Check if a flatpak exists in the currently configured remotes
     # TODO: Change these to not require flatpak execution, but use a reliable API instead
-    echo -n "INFO: Audit flatpak $1" | tee -a "$LOGFILE"
     if flatpak search "$1" > /dev/null; then 
-        echo " ✔" | tee -a "$LOGFILE"
+        RESULT="✔ "
     else
-        echo " ✖" | tee -a "$LOGFILE"
+        RESULT="✖ "
     fi
+    echo "INFO: $RESULT Audit flatpak $1" | tee -a "$LOGFILE"
 }
 
 function check_applist() {
