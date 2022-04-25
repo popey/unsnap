@@ -28,6 +28,7 @@ datagrip,com.jetbrains.DataGrip
 digikam,org.kde.digikam
 discord,com.discordapp.Discord
 dragon,org.kde.dragon
+drawio,com.jgraph.drawio.desktop
 eog,org.gnome.eog
 evince,org.gnome.Evince
 falkon,org.kde.falkon
@@ -132,6 +133,7 @@ kwordquiz,org.kde.kwordquiz
 labplot,org.kde.labplot
 lbry,io.lbry.lbry-app
 libreoffice,org.libreoffice.LibreOffice
+librepcb,org.librepcb.LibrePCB
 liferea,net.sourceforge.liferea
 love2d,org.love2d.love2d
 manuskript,ch.theologeek.Manuskript
