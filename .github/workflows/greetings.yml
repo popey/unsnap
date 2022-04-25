@@ -1,0 +1,21 @@
+name: 👋 Greetings
+
+on: [pull_request, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: |
+          Hello there 👋
+          Thanks for submitting your first issue to the unsnap project 🐛 We'll try and take a look at your issue soon ⏲
+
+          In the meantime you might want to join the [popey's home Discord](https://discord.gg/dk55RrnZyq) 🗣 where we discuss this project
+        pr-message: |
+          Hello there 👋
+          Thanks for submitting your first pull request to the unsnap project 💪 We'll try to review your pull request soon ⏲
+
+          In the meantime you might want to join the [popey's home Discord](https://discord.gg/dk55RrnZyq) 🗣 where we discuss this project
