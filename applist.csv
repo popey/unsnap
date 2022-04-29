@@ -189,6 +189,7 @@ slack,com.slack.Slack
 sonobus,net.sonobus.SonoBus
 spectacle,org.kde.spectacle
 spotify,com.spotify.Client
+steam,com.valvesoftware.Steam
 step,org.kde.step
 sublime-merge,com.sublimemerge.App
 sublime-text,com.sublimetext.three
