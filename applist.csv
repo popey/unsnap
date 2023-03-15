@@ -29,6 +29,7 @@ digikam,org.kde.digikam
 discord,com.discordapp.Discord
 dragon,org.kde.dragon
 drawio,com.jgraph.drawio.desktop
+emacs,org.gnu.emacs
 eog,org.gnome.eog
 evince,org.gnome.Evince
 falkon,org.kde.falkon
@@ -196,6 +197,7 @@ sublime-merge,com.sublimemerge.App
 sublime-text,com.sublimetext.three
 supertuxkart,net.supertuxkart.SuperTuxKart
 sweeper,org.kde.sweeper
+sweethome3d-homedesign,com.sweethome3d.Sweethome3d
 tandem,chat.tandem.Client
 teeworlds-unofficial,com.teeworlds.Teeworlds
 telegram-desktop,org.telegram.desktop
