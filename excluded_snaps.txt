@@ -7,6 +7,7 @@ core22
 gnome-3-28-1804
 gnome-3-34-1804
 gnome-3-38-2004
+gnome-42-2204
 godot-runtime
 gtk-common-themes
 gtk2-common-themes
