@@ -33,6 +33,7 @@ eog,org.gnome.eog
 evince,org.gnome.Evince
 falkon,org.kde.falkon
 firefox,org.mozilla.firefox
+firmware-updater,org.gnome.Firmware
 fluffychat,im.fluffychat.Fluffychat
 foliate,com.github.johnfactotum.Foliate
 fractal,org.gnome.Fractal
